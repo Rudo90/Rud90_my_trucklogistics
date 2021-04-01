@@ -5,6 +5,7 @@
     <title>Admin Panel</title>
 </head>
 <body>
+<a href="/loginToAccount" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">Logout</a>
 <h3>All Users list</h3>
 <table border="1">
     <thead>
@@ -71,7 +72,6 @@
         <td th:text="${order.customerDetails}"></td>
         <td th:text="${order.driverDetails}"></td>
         <td th:text="${order.startPoint}"></td>
-        <td th:text="${order.currentPoint}"></td>
         <td th:text="${order.destination}"></td>
         <td th:text="${order.status}"></td>
         <td th:text="${order.orderDate}"></td>

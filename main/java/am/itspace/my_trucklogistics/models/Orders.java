@@ -25,7 +25,6 @@ public class Orders {
     private String customerDetails;
     private String driverDetails;
     private String startPoint;
-    private String currentPoint;
     private String destination;
     @Enumerated(value = EnumType.STRING)
     private Status status;
