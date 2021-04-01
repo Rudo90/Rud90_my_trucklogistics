@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+</head>
+<body>
+<h3>All Users list</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Phone number</th>
+        <th>Gender</th>
+        <th>Role</th>
+        <th>Password</th>
+        <th>Photo</th>
+        <th>Driver Status</th>
+        <th>User Status</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.address}"></td>
+        <td th:text="${user.phone}"></td>
+        <td th:text="${user.gender}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.photoUrl}"></td>
+        <td th:text="${user.driverStatus}"></td>
+        <td th:text="${user.enable}"></td>
+        <td>
+            <a th:href="@{/myAccount/admin/editUser/(id=${user.id})}">Edit</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>List of All Orders</h3>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Type</th>
+        <th>Broker</th>
+        <th>Customer</th>
+        <th>Driver</th>
+        <th>Start Point</th>
+        <th>Current Point</th>
+        <th>Destination</th>
+        <th>Status</th>
+        <th>Order Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${allOrders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.type}"></td>
+        <td th:text="${order.user}"></td>
+        <td th:text="${order.customerDetails}"></td>
+        <td th:text="${order.driverDetails}"></td>
+        <td th:text="${order.startPoint}"></td>
+        <td th:text="${order.currentPoint}"></td>
+        <td th:text="${order.destination}"></td>
+        <td th:text="${order.status}"></td>
+        <td th:text="${order.orderDate}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

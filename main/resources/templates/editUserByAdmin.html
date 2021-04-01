@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<body>
+<form action="/myAccount/admin/editUser/" method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Username</th>
+                <th>User Status</th>
+                <th>Save</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="text" name="id" th:value="${user.id}"></td>
+            <td><input type="text" th:value="${user.name}"></td>
+            <td><input type="text" th:value="${user.surname}"></td>
+            <td><input type="text" th:value="${user.username}"></td>
+            <td>
+                <select name="status">
+                    <option value="ENABLE">ENABLE</option>
+                    <option value="DISABLED">DISABLED</option>
+                </select>
+            </td>
+            <td><input type="submit" value="save"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+</html>
