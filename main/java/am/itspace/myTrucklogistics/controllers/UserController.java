@@ -13,19 +13,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -43,55 +40,17 @@ public class UserController {
 
     @PostMapping ("/register")
     public String registerCustomer(@ModelAttribute @Valid User user, BindingResult bindingResult,
-                                   ModelMap modelMap, @RequestParam("image")MultipartFile image) throws IOException, MessagingException {
+                                   ModelMap modelMap, @RequestParam("image")MultipartFile image) {
 
         if (bindingResult.hasErrors()){
-            for (ObjectError error : bindingResult.getFieldErrors()) {
-                if (user.getName().length() ==0 && error.getDefaultMessage().contains("name")) {
-                    String msg1 = error.getDefaultMessage();
-                    modelMap.addAttribute("nameErr", msg1);
-                }
-                if (user.getSurname().length() ==0 && error.getDefaultMessage().contains("surname")) {
-                    String msg2 = error.getDefaultMessage();
-                    modelMap.addAttribute("surnameErr", msg2);
-                }
-                if (user.getUsername().length() ==0 && error.getDefaultMessage().contains("username")) {
-                    String msg3 = error.getDefaultMessage();
-                    modelMap.addAttribute("usernameErr", msg3);
-                }
-                if (user.getEmail().length()==0 && error.getDefaultMessage().contains("email")) {
-                    String msg4 = error.getDefaultMessage();
-                    modelMap.addAttribute("emailErr", msg4);
-                }
-                if (user.getAddress().length()==0 && error.getDefaultMessage().contains("address")) {
-                    String msg5 = error.getDefaultMessage();
-                    modelMap.addAttribute("addressErr", msg5);
-                }
-                if (user.getPhone().length()==0 && error.getDefaultMessage().contains("phone")) {
-                    String msg6 = error.getDefaultMessage();
-                    modelMap.addAttribute("phoneErr", msg6);
-                }
-                if (user.getPassword().length()==0 && error.getDefaultMessage().contains("password")) {
-                    String msg7 = error.getDefaultMessage();
-                    modelMap.addAttribute("passwordErr", msg7);
-                }
-            }
+            userService.bindingResult(user, bindingResult, modelMap);
             return "regForm";
         }
-        Optional<User> byEmail = userService.findUserByEmail(user.getEmail());
-        if (byEmail.isPresent()){
+        if (userService.findUserByEmail(user.getEmail()).isPresent()){
             return "redirect:/register?message=User already exist";
         }
         if (image != null && !image.isEmpty()) {
-            String photoUrl = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-            File file = new File(uploadDir + File.separator + photoUrl);
-            image.transferTo(file);
-            user.setPhotoUrl(photoUrl);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userService.saveUser(user);
-            emailSenderService.sandRegistrationAttachedMessage("email_name", user.getEmail(),
-                    "Verification success", "Dear " + user.getName() + " " + user.getSurname() +
-                            " welcome to your account", uploadDir + File.separator + photoUrl);
+            userService.saveUserWithImage(user, image, passwordEncoder, emailSenderService);
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
@@ -103,24 +62,25 @@ public class UserController {
                 "Verification success", "Dear " + user.getName() + " " + user.getSurname() +
                         " welcome to your account");
         return "redirect:/loginToAccount";
+
     }
 
     @PostMapping ("/myAccount/user/update")
     public String updateCustomer(@ModelAttribute User user,
                                  @RequestParam("status") Enable enable,
                                  @RequestParam("image")MultipartFile image) throws IOException {
-            if (image != null && !image.isEmpty()) {
-                String photoUrl = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-                File file = new File(uploadDir + File.separator + photoUrl);
-                image.transferTo(file);
-                user.setPhotoUrl(photoUrl);
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-            } else {
-                user.setPassword(passwordEncoder.encode(user.getPassword()));
-                user.setEnable(enable);
-            }
-            userService.saveUser(user);
-            return "userAccount";
+        if (image != null && !image.isEmpty()) {
+            String photoUrl = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+            File file = new File(uploadDir + File.separator + photoUrl);
+            image.transferTo(file);
+            user.setPhotoUrl(photoUrl);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setEnable(enable);
+        }
+        userService.saveUser(user);
+        return "userAccount";
     }
 
 
@@ -131,16 +91,7 @@ public class UserController {
                 return "userAccount";
             }
             if (principal.getCustomer().getRole().equals(Role.BROKER)) {
-                List<Orders> list = orderService.getOrdersByUser(principal.getCustomer());
-                for (Orders orders : list) {
-                    if (userService.findUserByEmail(orders.getCustomerDetails()).isPresent()) {
-                        User user = userService.findUserByEmail(orders.getCustomerDetails()).get();
-                        model.addAttribute("customerDetails", user);
-                    }
-                    if (orders.getStatus().equals(Status.PROCESSING)){
-                        model.addAttribute("brokersOrders", orderService.getOrdersByStatus(Status.PROCESSING));
-                    }
-                }
+                userService.getMyAccount(principal, model);
                 model.addAttribute("freeDrivers", userService.findByDriver(DriverStatus.FREE));
                 return "Broker-homepage";
             }
@@ -190,7 +141,6 @@ public class UserController {
             return "Broker-allDrivers";
         }
         return "redirect:/loginToAccount";
-
     }
 
     @PostMapping("/myAccount/allDrivers")
