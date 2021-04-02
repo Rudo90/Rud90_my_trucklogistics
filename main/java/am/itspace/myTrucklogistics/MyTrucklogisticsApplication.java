@@ -1,4 +1,4 @@
-package am.itspace.my_trucklogistics;
+package am.itspace.myTrucklogistics;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

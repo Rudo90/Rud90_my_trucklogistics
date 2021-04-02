@@ -1,4 +1,4 @@
-package am.itspace.my_trucklogistics.service.emailService;
+package am.itspace.myTrucklogistics.service.emailService;
 
 
 import lombok.RequiredArgsConstructor;

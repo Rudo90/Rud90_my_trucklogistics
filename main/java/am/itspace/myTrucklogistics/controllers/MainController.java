@@ -1,9 +1,8 @@
-package am.itspace.my_trucklogistics.controllers;
+package am.itspace.myTrucklogistics.controllers;
 
 
-import am.itspace.my_trucklogistics.models.User;
-import am.itspace.my_trucklogistics.service.OrderService;
-import am.itspace.my_trucklogistics.service.UserService;
+import am.itspace.myTrucklogistics.service.OrderService;
+import am.itspace.myTrucklogistics.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

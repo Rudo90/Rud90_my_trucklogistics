@@ -1,7 +1,7 @@
-package am.itspace.my_trucklogistics.security;
+package am.itspace.myTrucklogistics.security;
 
-import am.itspace.my_trucklogistics.models.User;
-import am.itspace.my_trucklogistics.repositories.UserRepo;
+import am.itspace.myTrucklogistics.models.User;
+import am.itspace.myTrucklogistics.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

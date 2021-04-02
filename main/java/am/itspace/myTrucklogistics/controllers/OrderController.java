@@ -1,10 +1,10 @@
-package am.itspace.my_trucklogistics.controllers;
+package am.itspace.myTrucklogistics.controllers;
 
-import am.itspace.my_trucklogistics.models.*;
-import am.itspace.my_trucklogistics.security.CurrentUser;
-import am.itspace.my_trucklogistics.service.OrderService;
-import am.itspace.my_trucklogistics.service.UserService;
-import am.itspace.my_trucklogistics.service.emailService.EmailSenderService;
+import am.itspace.myTrucklogistics.models.*;
+import am.itspace.myTrucklogistics.security.CurrentUser;
+import am.itspace.myTrucklogistics.service.OrderService;
+import am.itspace.myTrucklogistics.service.UserService;
+import am.itspace.myTrucklogistics.service.emailService.EmailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.constraints.Email;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package am.itspace.my_trucklogistics.config;
+package am.itspace.myTrucklogistics.config;
 
-import am.itspace.my_trucklogistics.security.UserDetailServiceImpl;
+import am.itspace.myTrucklogistics.security.UserDetailServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,15 +1,12 @@
-package am.itspace.my_trucklogistics.models;
+package am.itspace.myTrucklogistics.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Value;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor

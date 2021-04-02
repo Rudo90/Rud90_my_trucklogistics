@@ -1,8 +1,8 @@
-package am.itspace.my_trucklogistics.repositories;
+package am.itspace.myTrucklogistics.repositories;
 
-import am.itspace.my_trucklogistics.models.Orders;
-import am.itspace.my_trucklogistics.models.Status;
-import am.itspace.my_trucklogistics.models.User;
+import am.itspace.myTrucklogistics.models.Orders;
+import am.itspace.myTrucklogistics.models.Status;
+import am.itspace.myTrucklogistics.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

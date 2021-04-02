@@ -1,4 +1,4 @@
-package am.itspace.my_trucklogistics;
+package am.itspace.myTrucklogistics;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

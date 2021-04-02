@@ -1,13 +1,11 @@
-package am.itspace.my_trucklogistics.service;
+package am.itspace.myTrucklogistics.service;
 
 
-import am.itspace.my_trucklogistics.models.DriverStatus;
-import am.itspace.my_trucklogistics.models.Orders;
-import am.itspace.my_trucklogistics.models.Role;
-import am.itspace.my_trucklogistics.models.User;
-import am.itspace.my_trucklogistics.repositories.UserRepo;
+import am.itspace.myTrucklogistics.models.DriverStatus;
+import am.itspace.myTrucklogistics.models.Role;
+import am.itspace.myTrucklogistics.models.User;
+import am.itspace.myTrucklogistics.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

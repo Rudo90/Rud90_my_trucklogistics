@@ -1,28 +1,24 @@
-package am.itspace.my_trucklogistics.controllers;
+package am.itspace.myTrucklogistics.controllers;
 
-import am.itspace.my_trucklogistics.models.*;
-import am.itspace.my_trucklogistics.security.CurrentUser;
-import am.itspace.my_trucklogistics.service.OrderService;
-import am.itspace.my_trucklogistics.service.UserService;
-import am.itspace.my_trucklogistics.service.emailService.EmailSenderService;
+import am.itspace.myTrucklogistics.models.*;
+import am.itspace.myTrucklogistics.security.CurrentUser;
+import am.itspace.myTrucklogistics.service.OrderService;
+import am.itspace.myTrucklogistics.service.UserService;
+import am.itspace.myTrucklogistics.service.emailService.EmailSenderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.io.File;
@@ -110,7 +106,9 @@ public class UserController {
     }
 
     @PostMapping ("/myAccount/user/update")
-    public String updateCustomer(@ModelAttribute User user, @RequestParam("image")MultipartFile image) throws IOException {
+    public String updateCustomer(@ModelAttribute User user,
+                                 @RequestParam("status") Enable enable,
+                                 @RequestParam("image")MultipartFile image) throws IOException {
             if (image != null && !image.isEmpty()) {
                 String photoUrl = System.currentTimeMillis() + "_" + image.getOriginalFilename();
                 File file = new File(uploadDir + File.separator + photoUrl);
@@ -119,6 +117,7 @@ public class UserController {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
             } else {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
+                user.setEnable(enable);
             }
             userService.saveUser(user);
             return "userAccount";

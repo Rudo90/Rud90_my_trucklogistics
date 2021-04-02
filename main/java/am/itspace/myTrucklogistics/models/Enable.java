@@ -1,4 +1,4 @@
-package am.itspace.my_trucklogistics.models;
+package am.itspace.myTrucklogistics.models;
 
 public enum Enable {
 

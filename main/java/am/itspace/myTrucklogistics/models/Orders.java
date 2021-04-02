@@ -1,4 +1,4 @@
-package am.itspace.my_trucklogistics.models;
+package am.itspace.myTrucklogistics.models;
 
 
 import lombok.AllArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
