@@ -1,6 +1,7 @@
 package am.itspace.myTrucklogistics.controllers;
 
 
+import am.itspace.myTrucklogistics.models.User;
 import am.itspace.myTrucklogistics.service.OrderService;
 import am.itspace.myTrucklogistics.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class MainController {
 
     @GetMapping("/register")
     public String registration(ModelMap modelMap){
+        modelMap.addAttribute("user", new User());
         return "regForm";
     }
 

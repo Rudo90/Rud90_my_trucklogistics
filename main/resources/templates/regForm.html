@@ -63,18 +63,17 @@
     <section class="u-align-left u-clearfix u-image u-section-1" id="sec-baff">
       <div class="u-clearfix u-sheet u-sheet-1">
           <div class="u-opacity u-opacity-90 u-shape u-shape-rectangle u-white u-shape-1"> Registration form
-              <form th:align="center" action="/register" method="post" enctype="multipart/form-data">
-                  <span style="color: red;" th:text="${nameErr}"></span>
-                  <input type="text" placeholder="Input your first name" name="name"/><br>
-                  <span style="color: red;" th:text="${surnameErr}"></span>
-                  <input type="text" placeholder="Input your second name" name="surname"/><br>
-                  <span style="color: red;" th:text="${usernameErr}"></span>
-                  <input type="text" placeholder="Create username" name="username"/><br>
-                  <span style="color: red;" th:text="${emailErr}"></span>
-                  <input type="text" placeholder="Input valid email" name="email"/><br>
-                  <span style="color: red;" th:text="${addressErr}"></span>
-                  <input type="text" placeholder="Input your address" name="address"/><br>
-                  <span style="color: red;" th:text="${phoneErr}"></span>
+              <form th:align="center" action="#" th:action="@{/register}" th:object="${user}" method="post" enctype="multipart/form-data">
+                  <input type="text" th:field="*{name}" placeholder="Input your first name" name="name"/>
+                  <span style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span><br>
+                  <input type="text" th:field="*{surname}" placeholder="Input your second name" name="surname"/>
+                  <span style="color: red;" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span><br>
+                  <input type="text" th:field="*{username}" placeholder="Create username" name="username"/>
+                  <span style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span><br>
+                  <input type="text" th:field="*{email}" placeholder="Input valid email" name="email"/>
+                  <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span><br>
+                  <input type="text" th:field="*{address}" placeholder="Input your address" name="address"/>
+                  <span style="color: red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span><br>
                   <input type="text" placeholder="Input your phone number" name="phone"/><br>
                   <input type="radio" name="gender" value="MALE"/> : Male
                   <input type="radio" name="gender" value="FEMALE"/> : Female<br>
@@ -83,8 +82,8 @@
                       <option value="DRIVER">Driver</option>
                       <option value="BROKER">Broker</option>
                   </select>
-                  <span style="color: red;" th:text="${passwordErr}"></span>
-                  <input type="password" placeholder="Create password" name="password"/><br>
+                  <input type="password" th:field="*{password}" placeholder="Create password" name="password"/>
+                  <span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span><br>
                   <input type="file" name="image"/> <br>
                   <input type="hidden" name="enable" value="ENABLE">
                   <input type="submit" value="Register">

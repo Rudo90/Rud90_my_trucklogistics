@@ -43,9 +43,9 @@ public class UserController {
                                    ModelMap modelMap, @RequestParam("image")MultipartFile image) {
 
         if (bindingResult.hasErrors()){
-            userService.bindingResult(user, bindingResult, modelMap);
             return "regForm";
         }
+
         if (userService.findUserByEmail(user.getEmail()).isPresent()){
             return "redirect:/register?message=User already exist";
         }
@@ -54,6 +54,7 @@ public class UserController {
         } else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
+
         if (user.getRole().equals(Role.DRIVER)){
             user.setDriverStatus(DriverStatus.FREE);
         }
